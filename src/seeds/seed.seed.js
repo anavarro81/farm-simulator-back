@@ -2,9 +2,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
 const User = require("../api/models/user.models");
-const Calendar = require("../api/models/calendar.models");
-const Invoice = require ("../api/models/invoice.models")
-const Parcel = require ("../api/models/parcel.models")
+
 
 const arrayUsers = [    
     {

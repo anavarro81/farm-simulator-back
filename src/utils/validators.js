@@ -7,9 +7,10 @@ const validateEmail = (email) => {
   return regex.test(String(email).toLowerCase());
 };
 const validatePassword = (password) => {
-  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/; //  REGEX PASSWORD 1 Uppercase 1 Lowercase 1 number, minimo 8
 
-  // const regex = /^(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+  console.log('Estoy en validatePassword')
+
+  const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/; //  REGEX PASSWORD 1 Uppercase 1 Lowercase 1 number, minimo 8  
 
   // minimo 6 caracteres, una mayuscula, una minuscula, numero y un caracter especial
   return regex.test(String(password));
