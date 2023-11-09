@@ -46,8 +46,6 @@ const login = async (req, res) => {
   try {
   
     const userInfo = await User.findOne({ email: req.body.email })
-      .populate("parcel")
-      .populate("invoice");
 
     console.log(userInfo);
 
@@ -71,27 +69,41 @@ const login = async (req, res) => {
   }
 };
 
+// Obtiene todos los usuarios
+const getUsers = async (req, res) => {
+  try {
+    const allUser = await User.find()
+    return res.status(200).json(allUser);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
 
-const postUser = async (req, res) => {
+  const getUser = async (req, res) => {
     try {
-      const newUser = new User(req.body);
-      if (req.file) {
-        newUser.img = req.file.path;
+      
+      const { id } = req.params;
+      const selectedUser = await User.findById(id)
+
+      if (!selectedUser) {
+        return res.status(404).json({message: `No encontra usuario con id: ${id}` })          
       }
-      const createdUser = await newUser.save();
-  
-      return res.status(201).json(createdUser);
+      
+      return res.status(200).json(selectedUser)          
+
+
     } catch (error) {
-      return res.status(500).json(error);
+      
     }
-  };
+  }
   
-  const putUser = async (req, res) => {
+  // Actualia nombre y correo del usuario. 
+  const updateUser = async (req, res) => {
+
+    
+
     try {
       const { id } = req.params;
-      // const putUser = new User(req.body);
-      // putUser._id = id;
-      // putParcel.img = req.file.path;
       const updatedUser = await User.findByIdAndUpdate(
         id,
         {
@@ -110,6 +122,9 @@ const postUser = async (req, res) => {
       return res.status(500).json(error);
     }
   };
+
+
+  // Borra usuario.
   const deleteUser = async (req, res) => {
     try {
       const {id} = req.params;
@@ -123,16 +138,8 @@ const postUser = async (req, res) => {
     }
   };
 
-  const getUser = async (req, res) => {
-    try {
-      const allUser = await User.find().populate("parcel").populate("invoice");
-      return res.status(200).json(allUser);
-    } catch (error) {
-      return res.status(500).json(error);
-    }
-  };
+  
 
 
 
-
-module.exports = { register, login, postUser, putUser, deleteUser, getUser  };
+module.exports = { register, login, updateUser, deleteUser, getUsers, getUser  };

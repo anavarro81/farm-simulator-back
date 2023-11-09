@@ -10,9 +10,7 @@ const userSchema = new Schema(
       type: String,
       default: "user",
       enum: ["admin", "user"],
-    },
-    parcel: [{type:Schema.Types.ObjectId, ref: "parcel"}],
-    invoice: [{type:Schema.Types.ObjectId, ref: "invoice"}],
+    },   
   },
   {
     timestamps: true,
